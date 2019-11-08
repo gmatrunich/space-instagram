@@ -3,7 +3,7 @@ import os
 import json
 import urllib3
 
-DIRECTORY = 'images'
+DIRECTORY_TO_SAVE_IMAGES = 'images'
 HUBBLE_URL = 'http://hubblesite.org/api/v3/'
 HUBBLE_COLLECTION_NAME = 'wallpaper'
 
@@ -43,7 +43,7 @@ def download_hubble_image(image_id):
     response = requests.get(get_hubble_image_url(url), verify=False)
     image_url = response.url
     response.raise_for_status()
-    filename = "{}/{}.{}".format(DIRECTORY, image_id, get_image_type(image_url))
+    filename = "{}/{}.{}".format(DIRECTORY_TO_SAVE_IMAGES, image_id, get_image_type(image_url))
     if not os.path.exists(os.path.dirname(filename)):
         dir_name = os.path.dirname(filename)
         os.makedirs(dir_name)
