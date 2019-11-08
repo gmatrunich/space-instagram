@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 from instabot import Bot
 from os import listdir
 
-DIRECTORY = 'images'
+DIRECTORY_WITH_IMAGES = 'images'
 CROPPED_IMAGES_PREHEADER = 'cropped_'
 
 
@@ -34,5 +34,5 @@ def send_images_to_instagram(directory):
 
 if __name__ == '__main__':
     load_dotenv()
-    crop_images(DIRECTORY)
-    send_images_to_instagram(DIRECTORY)
+    crop_images(DIRECTORY_WITH_IMAGES)
+    send_images_to_instagram(DIRECTORY_WITH_IMAGES)
