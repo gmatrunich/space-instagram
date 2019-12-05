@@ -1,30 +1,27 @@
 import requests
 import os
-import json
 
+SPACEX_URL = 'https://api.spacexdata.com/v3/launches/latest'
 DIRECTORY_TO_SAVE_IMAGES = 'images'
 SPACEX_FILENAME_TEMPLATE = 'spacex'
-SPACEX_URL = 'https://api.spacexdata.com/v3/launches/latest'
 
 
 def get_spacex_images_urls(url):
     response = requests.request('GET', url)
-    #data = response.text
-    data = json.loads(response.text)
+    data = response.json()
     links_data = data['links']['flickr_images']
-    links_list = []
+    links = []
     for link in links_data:
-        links_list.append(link)
-    return links_list
+        links.append(link)
+    return links
 
 
 def download_spacex_image(image_url, image_file):
     response = requests.get(image_url)
     response.raise_for_status()
-    filename = "{}/{}".format(DIRECTORY_TO_SAVE_IMAGES, image_file)
-    if not os.path.exists(os.path.dirname(filename)):
-        dir_name = os.path.dirname(filename)
-        os.makedirs(dir_name)
+    filename = os.path.join(DIRECTORY_TO_SAVE_IMAGES, image_file)
+    if not os.path.exists(DIRECTORY_TO_SAVE_IMAGES):
+        os.makedirs(DIRECTORY_TO_SAVE_IMAGES)
     with open(filename, 'wb') as file:
         file.write(response.content)
 
