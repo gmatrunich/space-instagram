@@ -7,12 +7,8 @@ DIRECTORY_WITH_IMAGES = 'images'
 CROPPED_IMAGES_PREHEADER = 'cropped_'
 
 
-def authenticate():
-    client = ImgurClient(os.environ['IMGUR_CLIENT_ID'], 
-                         os.environ['IMGUR_CLIENT_SECRET'], 
-                         os.environ['IMGUR_ACCESS_TOKEN'], 
-                         os.environ['IMGUR_REFRESH_TOKEN']
-			)
+def authenticate(client_id, client_secret, access_token, refresh_token):
+    client = ImgurClient(client_id, client_secret, access_token, refresh_token)
     return client
 
 
@@ -25,5 +21,9 @@ def send_images_to_imgur(client, directory):
 
 if __name__ == "__main__":
     load_dotenv()
-    client = authenticate()
+    client = authenticate(os.environ['IMGUR_CLIENT_ID'], 
+                          os.environ['IMGUR_CLIENT_SECRET'], 
+                          os.environ['IMGUR_ACCESS_TOKEN'], 
+                          os.environ['IMGUR_REFRESH_TOKEN']
+			  )
     send_images_to_imgur(client, DIRECTORY_WITH_IMAGES)
